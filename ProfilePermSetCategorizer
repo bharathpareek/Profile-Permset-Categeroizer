@@ -1,0 +1,82 @@
+<apex:page Controller="ProfilePermSetCategorizer" sidebar="false" standardStylesheets="false" showHeader="true">
+
+<head> 
+    <title>Categorize Permission Set</title>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"/>
+
+    <apex:includeScript value="{!URLFOR($Resource.bootstrap, 'bootstrap/js/bootstrap.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.bootstrap, 'bootstrap/js/bootstrap.min.js')}"/>
+    
+    <apex:stylesheet value="{!URLFOR($Resource.bootstrap, 'bootstrap/css/bootstrap.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.bootstrap, 'bootstrap/css/bootstrap.min.css')}"/>
+    
+    <script type="text/javascript">
+        var $j = jQuery.noConflict();
+    </script>
+</head>
+
+<body>
+    <div class="container">
+    <apex:form >
+    <div class="navbar navbar-inverse">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <a class="brand" href="#">Profile - PermSet Categorizer</a>      
+        </div>
+      </div>
+     </div>
+   <div align="right"> <apex:commandLink value="Print this page" onclick="window.print();"/> </div>
+   <br/>
+   <br/>
+   <font size="4" color="#0174DF"> <span> Department:  </span> </font>
+   
+   <apex:selectList required="true" multiselect="false" size="1" label="Type"  value="{!selectedDepartmentValue}">
+       <apex:selectOptions value="{!DepartmentList}"/>
+   </apex:selectList>
+        
+   &nbsp;&nbsp;&nbsp;
+        
+   <font size="4" color="#0174DF"> <span> Region: </span> </font>
+   <apex:selectList required="true" multiselect="false" size="1" label="Type"  value="{!selectedRegionValue}">
+       <apex:selectOptions value="{!RegionList}"/>
+   </apex:selectList>
+        
+   &nbsp;&nbsp;&nbsp;
+        
+   <font size="4" color="#0174DF"> <span> Size: </span> </font>
+   <apex:selectList required="true" multiselect="false" size="1" label="Type"  value="{!selectedSizeValue}">
+       <apex:selectOptions value="{!SizeList}"/>
+   </apex:selectList>      
+   <br/>
+   <br/>
+   <div align="center"> <apex:commandButton action="{!categorizePermSet}" value="Find" /> </div>
+   <br/>
+        
+        <apex:pageBlock >
+            <apex:pageblocktable value="{!permSetName}" var="a">
+                <apex:column >
+                   <apex:facet name="header"><font size="4" color="#29088A"> <span> Permission Sets</span> </font></apex:facet>
+                   <apex:outputLink value="/{!a.id}">{!a.Label}</apex:outputLink>
+                </apex:column>
+            </apex:pageblocktable>
+        </apex:pageBlock>
+        
+        <apex:pageBlock >
+            <apex:pageblocktable value="{!profileName}" var="b" >
+                <apex:column >
+                   <apex:facet name="header"><font size="4" color="#29088A"> <span> Profiles</span> </font></apex:facet> 
+                   <apex:outputLink value="/{!b.id}">{!b.Name}</apex:outputLink>
+                </apex:column>
+            </apex:pageblocktable>  
+        </apex:pageBlock>               
+   </apex:form>
+   </div>
+</body>
+</apex:page>
+                                        
