@@ -1,3 +1,11 @@
+/*
+ * @author Bharath Pareek
+ * Email : bharathpareek@gmail.com
+ *
+ * Apex controller to categorize profiles and permission sets 
+ * 
+ */
+ 
 public class ProfilePermSetCategorizer {
     
     public string selectedDepartmentValue{get;set;}
