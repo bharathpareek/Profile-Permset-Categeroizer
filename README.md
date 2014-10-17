@@ -1,7 +1,7 @@
 Profile-Permset-Categeroizer
 ============================
 
-Catergorizes Profiles and Permission sets based on Region, Department and size of the organization
+Categorizes Profiles and Permission sets in Salesforce based on the Region, Department and Size of the organization
 
 Tool Setup
 
