@@ -64,6 +64,11 @@
                    <apex:facet name="header"><font size="4" color="#29088A"> <span> Permission Sets</span> </font></apex:facet>
                    <apex:outputLink value="/{!a.id}">{!a.Label}</apex:outputLink>
                 </apex:column>
+                <apex:column dir="RTL">
+                  <apex:commandButton value="Assigned Users" action="/005?id={!a.id}" dir="RTL"/>
+                  &nbsp;&nbsp;
+                  <apex:commandButton value="Assign Users" action="/005?permsetid={!a.id}" dir="RTL"/>
+                </apex:column>
             </apex:pageblocktable>
         </apex:pageBlock>
         
@@ -72,6 +77,9 @@
                 <apex:column >
                    <apex:facet name="header"><font size="4" color="#29088A"> <span> Profiles</span> </font></apex:facet> 
                    <apex:outputLink value="/{!b.id}">{!b.Name}</apex:outputLink>
+                </apex:column>
+                <apex:column dir="RTL">
+                   <apex:commandButton value="Assigned Users" action="/005?id={!b.id}" dir="RTL"/>
                 </apex:column>
             </apex:pageblocktable>  
         </apex:pageBlock>               
