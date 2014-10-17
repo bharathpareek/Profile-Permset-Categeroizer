@@ -3,7 +3,7 @@ Profile-Permset-Categeroizer
 
 Categorizes Profiles and Permission sets in Salesforce based on the Region, Department and Size of the organization
 
-Tool Setup
+### Tool Setup
 
 1. Download the twitter bootstrap from here : http://getbootstrap.com/getting-started/#download
 2. Upload the downloaded zip file on Salesforce
@@ -12,7 +12,7 @@ Tool Setup
 3. Copy the Apex Class and save
 4. Copy the Visual Force page and save
 
-How to use the tool ?
+### How to use the tool ?
 
 1. Go to the Setup menu in Salesforce and type "Custom Permissions"
 2. Create 9 custom permissions : America, Europe, Asia, IT, Healthcare, Education, Large, Medium, Small
@@ -27,8 +27,8 @@ How to use the tool ?
 8. Button "Assigned Users" will display all the users assigned to the permission set. Button "Assign Users" will let you assign users to the permission set.
 
 
-Note: With a small tweak in the Apex class, you can customize the categories. 
+**Note**: With a small tweak in the Apex class, you can customize the categories. 
 
-Contact Info:
+#### Contact Info:
  - Gmail : bharathpareek@gmail.com 
  - Twitter : @bharathpareek
