@@ -5,7 +5,7 @@ Categorizes Profiles and Permission sets in Salesforce based on the Region, Depa
 
 ### Tool Setup
 
-1. Download the twitter bootstrap from here : http://getbootstrap.com/getting-started/#download
+1. Download the twitter bootstrap from here : http://bootstrapdocs.com/v3.0.0/docs/getting-started/
 2. Upload the downloaded zip file on Salesforce
     - From the setup menu, type Static Resources
     - Upload the bootstrap zip file and make sure to name it as bootstrap
