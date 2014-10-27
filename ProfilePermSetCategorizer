@@ -65,9 +65,9 @@
                    <apex:outputLink value="/{!a.id}">{!a.Label}</apex:outputLink>
                 </apex:column>
                 <apex:column dir="RTL">
-                  <apex:commandButton value="Assigned Users" action="/005?id={!a.id}" dir="RTL"/>
+                  <apex:commandButton value="Assigned Users" action="/005?id={!left(a.id,15)}" dir="RTL"/>
                   &nbsp;&nbsp;
-                  <apex:commandButton value="Assign Users" action="/005?permsetid={!a.id}" dir="RTL"/>
+                  <apex:commandButton value="Assign Users" action="/005?permsetid={!left(a.id,15)}" dir="RTL"/>
                 </apex:column>
             </apex:pageblocktable>
         </apex:pageBlock>
@@ -79,10 +79,18 @@
                    <apex:outputLink value="/{!b.id}">{!b.Name}</apex:outputLink>
                 </apex:column>
                 <apex:column dir="RTL">
-                   <apex:commandButton value="Assigned Users" action="/005?id={!b.id}" dir="RTL"/>
+                   <apex:commandButton value="Assigned Users" action="/005?id={!left(b.id,15)}" dir="RTL"/>
                 </apex:column>
             </apex:pageblocktable>  
-        </apex:pageBlock>               
+        </apex:pageBlock>  
+        <apex:pageBlock >
+            <apex:pageblocktable value="{!usersName}" var="c">
+                <apex:column >
+                   <apex:facet name="header"><font size="4" color="#29088A"> <span> Users</span> </font></apex:facet>
+                   <apex:outputText >{!c}</apex:outputText>
+                </apex:column>
+            </apex:pageblocktable>
+</apex:pageBlock>
    </apex:form>
    </div>
 </body>
