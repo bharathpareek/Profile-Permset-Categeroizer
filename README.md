@@ -25,6 +25,7 @@ Categorizes Profiles and Permission sets in Salesforce based on the Region, Depa
 6. Select IT, America and Large under the categories and hit Find
 7. Permission set "Sales Perm Set" should be displayed and you can navigate to the permission set by clicking on the name.
 8. Button "Assigned Users" will display all the users assigned to the permission set. Button "Assign Users" will let you assign users to the permission set.
+9. Users Column will display all the users belonging to the selected category. 
 
 
 **Note**: With a small tweak in the Apex class, you can customize the categories. 
