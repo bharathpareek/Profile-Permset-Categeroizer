@@ -1,23 +1,19 @@
 /*
- * @author Bharath Pareek
- * Email : bharathpareek@gmail.com
- *
- * Apex controller to categorize profiles and permission sets 
- * 
- */
- 
+* @author Bharath Pareek
+* Email : bharathpareek@gmail.com
+*
+* Apex controller to categorize profiles and permission sets
+*
+*/
 public class ProfilePermSetCategorizer {
-    
     public string selectedDepartmentValue{get;set;}
     public string selectedRegionValue{get;set;}
     public string selectedSizeValue{get;set;}
-     
     public ProfilePermSetCategorizer () {
         selectedDepartmentValue='IT';
         selectedRegionValue='America';
         selectedSizeValue='Large';
     }
-
     public List<SelectOption> getDepartmentList() {
         List<SelectOption> options = new List<SelectOption>();
         options.add(new SelectOption('--Select--','--Select--'));
@@ -26,7 +22,7 @@ public class ProfilePermSetCategorizer {
         options.add(new SelectOption('Education','Education'));
         return options;
     }
-    
+
     public List<SelectOption> getRegionList() {
         List<SelectOption> options = new List<SelectOption>();
         options.add(new SelectOption('--Select--','--Select--'));
@@ -35,7 +31,7 @@ public class ProfilePermSetCategorizer {
         options.add(new SelectOption('Asia','Asia'));
         return options;
     }
-    
+
     public List<SelectOption> getSizeList() {
         List<SelectOption> options = new List<SelectOption>();
         options.add(new SelectOption('--Select--','--Select--'));
@@ -47,34 +43,40 @@ public class ProfilePermSetCategorizer {
     
     public List<PermissionSet> permSetName;
     public List<PermissionSet> getpermSetName(){
-       return permSetName;
+        return permSetName;
     }
-   
+
     public List<Profile> profileName;
     public List<Profile> getProfileName(){
-       return profileName;
+        return profileName;
     }
-   
+    
+    public Set<PermissionSetAssignment> usersFromPs;
+    public Set<PermissionSetAssignment> getUsers() {
+       return usersFromPs;
+    }
+    
+    public Set<String> usersName;
+    public Set<String> getUsersName(){
+        return usersName;
+    }
+
     public void categorizePermSet() {
         permSetName = new List<PermissionSet>();
         profileName = new List<Profile>();
-        List<String> profileIds = new List<String>(); 
-        
+        usersName = new Set<String>();
+        List<String> profileIds = new List<String>();
         List<PermissionSet> permSetNameOwnedByProfile = new List<PermissionSet>();
-        
         List<PermissionSet> departmentPerms = new List<PermissionSet>();
         List<PermissionSet> regionPerms = new List<PermissionSet>();
         List<PermissionSet> sizePerms = new List<PermissionSet>();
-        
         Map<String, PermissionSet> map1 = new Map<String, PermissionSet>();
         Map<String, PermissionSet> map2 = new Map<String, PermissionSet>();
         Map<String, PermissionSet> map3 = new Map<String, PermissionSet>();
-        
         Integer i =0;
-        
         List<CustomPermission> sector = [SELECT Id from CustomPermission WHERE DeveloperName = :selectedDepartmentValue];
         List<CustomPermission> region = [SELECT Id from CustomPermission WHERE DeveloperName = :selectedRegionValue];
-        List<CustomPermission> size   = [SELECT Id from CustomPermission WHERE DeveloperName = :selectedSizeValue];
+        List<CustomPermission> size = [SELECT Id from CustomPermission WHERE DeveloperName = :selectedSizeValue];
         
         departmentPerms = [Select Label, IsOwnedByProfile, ProfileId FROM PermissionSet WHERE Id IN (Select ParentId from SetupEntityAccess WHERE SetupEntityId in :sector)];
         regionPerms = [Select Label, IsOwnedByProfile, ProfileId FROM PermissionSet WHERE Id IN (Select ParentId from SetupEntityAccess WHERE SetupEntityId in :region)];
@@ -83,27 +85,35 @@ public class ProfilePermSetCategorizer {
         for(PermissionSet p : departmentPerms){
             map1.put(p.Label, p);
         }
-        
         for(PermissionSet q : regionPerms){
             map2.put(q.Label, q);
         }
-        
         for(PermissionSet r : sizePerms){
             map3.put(r.Label, r);
         }
-        
         for(i=0; i<regionPerms.size(); i++){
-          if(map1.containsKey(regionPerms[i].Label) && map3.containsKey(regionPerms[i].Label)){
-              if (regionPerms[i].IsOwnedByProfile == false) {
-                  permSetName.add(regionPerms[i]);
-              }
-              else {
-                  profileIds.add(regionPerms[i].ProfileId);
-              }
-          }
-              
+            if(map1.containsKey(regionPerms[i].Label) && map3.containsKey(regionPerms[i].Label)){
+                if (regionPerms[i].IsOwnedByProfile == false) {
+                    permSetName.add(regionPerms[i]);
+                }
+                else {
+                    profileIds.add(regionPerms[i].ProfileId);
+                }
+            }
+        }
+        profileName = [Select Name from Profile Where Id IN :profileIds];
+        usersFromPs = new Set<PermissionSetAssignment>([SELECT Assignee.Name FROM PermissionSetAssignment WHERE PermissionSet.Id = :permSetName]);
+        List<PermissionSet> p = new List<PermissionSet>([Select Id From PermissionSet Where ProfileId = :profileName]);
+        Set<PermissionSetAssignment> usersFromProfile = new Set<PermissionSetAssignment>([Select Assignee.Name From PermissionSetAssignment WHERE PermissionSet.Id = :p ]);
+        
+        for (PermissionSetAssignment psa : usersFromPs){
+            if(!usersName.contains(psa.Assignee.Name))
+                usersName.add(psa.Assignee.Name);
         }
         
-        profileName = [Select Name from Profile Where Id IN :profileIds];   
+        for (PermissionSetAssignment psaa : usersFromProfile){
+            if(!usersName.contains(psaa.Assignee.Name))
+                usersName.add(psaa.Assignee.Name);
+        }
     }
 }
