@@ -33,3 +33,7 @@ Categorizes Profiles and Permission sets in Salesforce based on the Region, Depa
 #### Contact Info:
  - Gmail : bharathpareek@gmail.com 
  - Twitter : @bharathpareek
+
+#### Future Updates:
+ - Custom Categories
+ - Feel free to shoot me an email for any specific feature request
